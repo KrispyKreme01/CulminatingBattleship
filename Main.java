@@ -31,7 +31,7 @@ public class Main {
                     System.out.print("\t"+"~");
                 
                 else if(friendlyBoard[row1][column1])
-                    System.out.print("\t"+"X");
+                    System.out.print("\t"+"X" + "DICKS");
                 }
 
     }
