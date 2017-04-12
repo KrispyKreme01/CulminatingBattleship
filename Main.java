@@ -5,6 +5,16 @@ public class Main {
 	public static void main(String[] args) {
 		int[][] enemyBoard = new int[6][6];
 		boolean[][] friendlyBoard = new boolean[6][6];
+	System.out.println("WELCOME TO VIOLENT SEA DISPUTES \n THIS IS YOUR BOARD");
+	//PRINTS BOARD FOR USER FIRST TIME
+	System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
+	for (int row1 = 0; row1 < 6; row1++) {
+		System.out.print("\n" + (row1));
+		for (int column1 = 0; column1 < 6; column1++) {
+			if (friendlyBoard[row1][column1] != true)
+				System.out.print("\t" + "~");
+		}
+	}
 		friendlyBoardChooser(friendlyBoard);
 		friendlyBoardMaker(friendlyBoard);
 		enemyBoardMaker(enemyBoard);
@@ -13,7 +23,7 @@ public class Main {
 	public static void friendlyBoardChooser(boolean[][] friendlyBoard) //this chooses the coordinates for the user
 	{
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Please enter your five coordinates");
+		System.out.println("\nPlease enter your five coordinates");
 		for (int coordinateAmount = 1; coordinateAmount <= 5; coordinateAmount++) {
 			System.out.println("X-value of coordinate number " + coordinateAmount + ":");
 			int coordinateNumberX = sc.nextInt();
@@ -26,13 +36,14 @@ public class Main {
 
 	public static void friendlyBoardMaker(boolean[][] friendlyBoard) //this shows the users board
 	{
+		System.out.println("THIS IS YOUR BOARD");
 		System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
 		for (int row1 = 0; row1 < 6; row1++) {
 			System.out.print("\n" + (row1));
 			for (int column1 = 0; column1 < 6; column1++) {
 				if (friendlyBoard[row1][column1] != true)
 					System.out.print("\t" + "~");
-
+ 
 				else if (friendlyBoard[row1][column1])
 					System.out.print("\t" + "X");
 			}
@@ -53,6 +64,8 @@ public class Main {
 			i--;
 
 		}
+		System.out.println("\nTHIS IS WHAT YOUR ENEMIES BOARD LOOKS LIKE");
+		System.out.println("\n\n\t0 \t1 \t2 \t3 \t4 \t5");
 		for (int row1 = 0; row1 < 6; row1++) {
 			System.out.print("\n" + (row1));
 			for (int column1 = 0; column1 < 6; column1++) {
@@ -68,6 +81,10 @@ public class Main {
 
 
 		}
+	}
+	public static void friendlyShooter(int[][] enemyBoard){
+		System.out.println("YOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : 2,2. DO NOT USE SPACES");
+	
 	}
 }
 
