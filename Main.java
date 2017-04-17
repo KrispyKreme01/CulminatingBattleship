@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
+		//gfchjchgc
 		int[][] enemyBoard = new int[6][6];
 		boolean[][] friendlyBoard = new boolean[6][6];
 	System.out.println("WELCOME TO VIOLENT SEA DISPUTES \n THIS IS YOUR BOARD");
