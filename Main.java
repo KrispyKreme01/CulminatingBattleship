@@ -3,54 +3,66 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		//gfchjchgc
 		int[][] enemyBoard = new int[6][6];
-		boolean[][] friendlyBoard = new boolean[6][6];
+		int[][] shotBoard = new int[6][6];
+		int[][] friendlyBoard = new int[6][6];
 	System.out.println("WELCOME TO VIOLENT SEA DISPUTES \n THIS IS YOUR BOARD");
 	//PRINTS BOARD FOR USER FIRST TIME
 	System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
 	for (int row1 = 0; row1 < 6; row1++) {
 		System.out.print("\n" + (row1));
 		for (int column1 = 0; column1 < 6; column1++) {
-			if (friendlyBoard[row1][column1] != true)
+			if (friendlyBoard[row1][column1] == 0)
 				System.out.print("\t" + "~");
 		}
 	}
 		friendlyBoardChooser(friendlyBoard);
 		friendlyBoardMaker(friendlyBoard);
 		enemyBoardMaker(enemyBoard);
+		friendlyShooter(enemyBoard);
 	}
 
-	public static void friendlyBoardChooser(boolean[][] friendlyBoard) //this chooses the coordinates for the user
+	public static void friendlyBoardChooser(int[][] friendlyBoard) //this chooses the coordinates for the user
 	{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("\nPlease enter your five coordinates");
 		for (int coordinateAmount = 1; coordinateAmount <= 5; coordinateAmount++) {
-			System.out.println("X-value of coordinate number " + coordinateAmount + ":");
-			int coordinateNumberX = sc.nextInt();
-			System.out.println("Y-value of coordinate number " + coordinateAmount + ":");
-			int coordinateNumberY = sc.nextInt();
-			friendlyBoard[coordinateNumberX][coordinateNumberY] = true;
+				System.out.println("X-value of coordinate number " + coordinateAmount + " (FROM 0-5):");
+				int coordinateNumberX = sc.nextInt();
+				System.out.println("Y-value of coordinate number " + coordinateAmount + " (FROM 0-5):");
+				int coordinateNumberY = sc.nextInt();
+					if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
+						friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
+					}
+					else {
+						System.out.println("YOU HAVE ALREADY SELECTED THIS COORDINATE, PLEASE CHOOSE A DIFFERENT ONE.");
+						coordinateAmount--;
+						
+					}
 
 		}
 	}
 
-	public static void friendlyBoardMaker(boolean[][] friendlyBoard) //this shows the users board
+	public static void friendlyBoardMaker(int[][] friendlyBoard) //this shows the users board
 	{
 		System.out.println("THIS IS YOUR BOARD");
 		System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
 		for (int row1 = 0; row1 < 6; row1++) {
 			System.out.print("\n" + (row1));
 			for (int column1 = 0; column1 < 6; column1++) {
-				if (friendlyBoard[row1][column1] != true)
+				if (friendlyBoard[row1][column1] == 0)
 					System.out.print("\t" + "~");
- 
-				else if (friendlyBoard[row1][column1])
-					System.out.print("\t" + "X");
+				else if (friendlyBoard[row1][column1] == 1)
+					System.out.print("\t" + "B");
+				else if (friendlyBoard[row1][column1] == 2)
+					System.out.println("\t" + "X");
+			}
+			
+				
 			}
 
 		}
-	}
+	
 
 	public static void enemyBoardMaker(int[][] enemyBoard) {
 		Random rand = new Random();
@@ -78,14 +90,32 @@ public class Main {
 
 				else if (enemyBoard[row1][column1] == 2)
 					System.out.print("\t" + "X");
+				
+				else if (enemyBoard[row1][column1] == -1)
+					System.out.print("\t" + "-");
 			}
 
 
 		}
 	}
 	public static void friendlyShooter(int[][] enemyBoard){
-		System.out.println("YOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : 2,2. DO NOT USE SPACES");
-	
+		Scanner sc = new Scanner(System.in);
+		System.out.println("YOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : x,y = 2,2. (SEPERATE ONLY BY COMMA, NO SPACES)");
+		String chooseCoordinate = sc.nextLine();
+		int chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
+		int chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
+			if (enemyBoard[chooseX][chooseY] == 0) {
+				enemyBoard[chooseX][chooseY] = -1;
+				System.out.println("YOU MISSED!");
+			}
+			else if (enemyBoard[chooseX][chooseY] == 1 ) {
+				enemyBoard[chooseX][chooseY] = 2;
+				System.out.println("YOU HIT A SHIP");
+			}
+		
+	}
+	public static void enemyShooter (int[][] friendlyBoard) {
+		
 	}
 }
 
