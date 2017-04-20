@@ -4,24 +4,28 @@ public class Main {
 
 	public static void main(String[] args) {
 		int[][] enemyBoard = new int[6][6];
-		int[][] shotBoard = new int[6][6];
 		int[][] friendlyBoard = new int[6][6];
+		int[][] coordCheck = new int[6][6];
 	System.out.println("WELCOME TO VIOLENT SEA DISPUTES \n THIS IS YOUR BOARD");
 	//PRINTS BOARD FOR USER FIRST TIME
-	System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
-	for (int row1 = 0; row1 < 6; row1++) {
-		System.out.print("\n" + (row1));
-		for (int column1 = 0; column1 < 6; column1++) {
-			if (friendlyBoard[row1][column1] == 0)
-				System.out.print("\t" + "~");
-		}
-	}
+	boardDisplay(friendlyBoard);
 		friendlyBoardChooser(friendlyBoard);
 		friendlyBoardMaker(friendlyBoard);
 		enemyBoardMaker(enemyBoard);
 		friendlyShooter(enemyBoard);
+		enemyShooter(friendlyBoard, coordCheck);
+		
 	}
-
+	public static void boardDisplay(int friendlyBoard[][]) {
+		System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
+		for (int row1 = 0; row1 < 6; row1++) {
+			System.out.print("\n" + (row1));
+			for (int column1 = 0; column1 < 6; column1++) {
+				if (friendlyBoard[row1][column1] == 0)
+					System.out.print("\t" + "~");
+			}
+		}
+	}
 	public static void friendlyBoardChooser(int[][] friendlyBoard) //this chooses the coordinates for the user
 	{
 		Scanner sc = new Scanner(System.in);
@@ -56,6 +60,8 @@ public class Main {
 					System.out.print("\t" + "B");
 				else if (friendlyBoard[row1][column1] == 2)
 					System.out.println("\t" + "X");
+				else if (friendlyBoard[row1][column1] == -1)
+					System.out.println("\t" + "-");
 			}
 			
 				
@@ -100,21 +106,43 @@ public class Main {
 	}
 	public static void friendlyShooter(int[][] enemyBoard){
 		Scanner sc = new Scanner(System.in);
-		System.out.println("YOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : x,y = 2,2. (SEPERATE ONLY BY COMMA, NO SPACES)");
+		System.out.println("\nYOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : x,y = 2,2. (SEPERATE ONLY BY COMMA, NO SPACES)");
 		String chooseCoordinate = sc.nextLine();
 		int chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
 		int chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
 			if (enemyBoard[chooseX][chooseY] == 0) {
 				enemyBoard[chooseX][chooseY] = -1;
-				System.out.println("YOU MISSED!");
+				System.out.println("\nYOU MISSED!");
 			}
 			else if (enemyBoard[chooseX][chooseY] == 1 ) {
 				enemyBoard[chooseX][chooseY] = 2;
-				System.out.println("YOU HIT A SHIP");
+				System.out.println("\nYOU HIT A SHIP");
 			}
 		
 	}
-	public static void enemyShooter (int[][] friendlyBoard) {
+	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck) {
+		Random rand = new Random();
+		 
+		int randCoordY = 0;
+		
+		int randCoordX = 0;
+		for(int q = 0; q < 1; q++) {
+			randCoordX = rand.nextInt(6);
+			randCoordY = rand.nextInt(6);
+				if (coordCheck[randCoordX][randCoordY] == 0)
+					coordCheck[randCoordX][randCoordY] = 1;
+				else 
+					q--;
+		}
+		if(friendlyBoard[randCoordX][randCoordY] == 1) {
+			friendlyBoard[randCoordX][randCoordY] = 2;
+			System.out.println("\nYOUR SHIP HAS BEEN HIT");
+		}
+		else if(friendlyBoard[randCoordX][randCoordY] == 0) {
+			friendlyBoard[randCoordX][randCoordY] = -1;
+			System.out.println("\nTHE ENEMY HAS MISSED, ITS YOUR TURN");
+		}
+		
 		
 	}
 }
