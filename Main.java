@@ -12,8 +12,8 @@ public class Main {
 		friendlyBoardChooser(friendlyBoard);
 		friendlyBoardMaker(friendlyBoard);
 		enemyBoardMaker(enemyBoard);
-		friendlyShooter(enemyBoard);
-		enemyShooter(friendlyBoard, coordCheck);
+		friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
+		enemyShooter(friendlyBoard, coordCheck, enemyBoard);
 		
 	}
 	public static void boardDisplay(int friendlyBoard[][]) {
@@ -46,7 +46,6 @@ public class Main {
 
 		}
 	}
-
 	public static void friendlyBoardMaker(int[][] friendlyBoard) //this shows the users board
 	{
 		System.out.println("THIS IS YOUR BOARD");
@@ -68,8 +67,6 @@ public class Main {
 			}
 
 		}
-	
-
 	public static void enemyBoardMaker(int[][] enemyBoard) {
 		Random rand = new Random();
 		for (int i = 0; i < 5; i++) {
@@ -104,7 +101,7 @@ public class Main {
 
 		}
 	}
-	public static void friendlyShooter(int[][] enemyBoard){
+	public static void friendlyShooter(int[][] enemyBoard, int[][] friendlyBoard, int[][] coordCheck){
 		Scanner sc = new Scanner(System.in);
 		System.out.println("\nYOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : x,y = 2,2. (SEPERATE ONLY BY COMMA, NO SPACES)");
 		String chooseCoordinate = sc.nextLine();
@@ -118,9 +115,18 @@ public class Main {
 				enemyBoard[chooseX][chooseY] = 2;
 				System.out.println("\nYOU HIT A SHIP");
 			}
+			//boolean friendlyWin = intStream boolean (win condition) 
+			if () {
+				//this is where were going to put win conditions, intStream method will
+				//search the entire enemyArray in the friendlyBoard method to check to see if there are
+				//any ships left, if not rerun the shooting methods
+			}
+			else {
+			enemyShooter(friendlyBoard, coordCheck, enemyBoard);
+			}
 		
 	}
-	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck) {
+	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck, int[][] enemyBoard) {
 		Random rand = new Random();
 		 
 		int randCoordY = 0;
@@ -142,8 +148,15 @@ public class Main {
 			friendlyBoard[randCoordX][randCoordY] = -1;
 			System.out.println("\nTHE ENEMY HAS MISSED, ITS YOUR TURN");
 		}
-		
-		
+		//boolean enemyWin = intStream (enemy win condition)
+		if() {
+			//this is where were going to put win conditions, intStream method will
+			//search the entire friendly Array in the enemyBoard method to check to see if there are
+			//any ships left, if not rerun the shooting methods
+		}
+		else {
+			friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
+		}
 	}
 }
 
