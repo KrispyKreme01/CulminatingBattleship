@@ -18,6 +18,7 @@ public class Main {
 		
 	}
 	public static void boardDisplay(int friendlyBoard[][]) {
+		System.out.println("THIS IS WHAT YOUR BOARD LOOKS LIKE!");
 		System.out.println("\t0 \t1 \t2 \t3 \t4 \t5");
 		for (int row1 = 0; row1 < 6; row1++) {
 			System.out.print("\n" + (row1));
@@ -70,17 +71,20 @@ public class Main {
 		}
 	public static void enemyBoardMaker(int[][] enemyBoard) {
 		Random rand = new Random();
-		for (int i = 0; i < 5; i++) {
-			//sets up enemy battle ship spots
-			
-			int enemyCoordX = rand.nextInt(6);
-			int enemyCoordY = rand.nextInt(6);
-			if(enemyBoard[enemyCoordX][enemyCoordY] == 0)
-			enemyBoard[enemyCoordX][enemyCoordY] = 1;
-			else
-			i--;
-
+			for (int i = 0; i < 5; i++) {
+				//sets up enemy battle ship spots
+				int enemyCoordX = rand.nextInt(6);
+				int enemyCoordY = rand.nextInt(6);
+					if(enemyBoard[enemyCoordX][enemyCoordY] == 0)
+						enemyBoard[enemyCoordX][enemyCoordY] = 1;
+					else
+						i--;
+					
 		}
+		enemyBoardDisplay(enemyBoard);
+	}
+	public static void enemyBoardDisplay(int[][] enemyBoard) {
+		
 		System.out.println("\nTHIS IS WHAT YOUR ENEMIES BOARD LOOKS LIKE");
 		System.out.println("\n\n\t0 \t1 \t2 \t3 \t4 \t5");
 		for (int row1 = 0; row1 < 6; row1++) {
@@ -111,27 +115,32 @@ public class Main {
 			if (enemyBoard[chooseX][chooseY] == 0) {
 				enemyBoard[chooseX][chooseY] = -1;
 				System.out.println("\nYOU MISSED!");
+				
 			}
 			else if (enemyBoard[chooseX][chooseY] == 1 ) {
 				enemyBoard[chooseX][chooseY] = 2;
 				System.out.println("\nYOU HIT A SHIP");
 			}
+			
 			//checks to see if youve won or not 
-			//DOES NOT WORK
-		/*
-			for (int searchX = 0; searchX < 6; searchX++) {
-				for (int searchY = 0; searchY < 6; searchY++){
-					if (enemyBoard[searchX][searchY] == 1) {
-						System.out.println("THE ENEMY STILL HAS SHIPS, DONT STOP THE FIGHT");
-						enemyShooter(friendlyBoard, coordCheck, enemyBoard);
-					}
-					else {
-						System.out.println("CONGRATULATIONS! YOU HAVE WON");
-						System.exit(1);
-					}
+		
+			boolean fWin = false;
+		for (int searchX = 0; searchX < 5; searchX++) {
+			for (int searchY = 0; searchY < 5; searchY++){
+				if (enemyBoard[searchX][searchY] == 1) {
+					System.out.println("\nTHE ENEMY STILL HAS SHIPS, DONT STOP THE FIGHT");
+					fWin = true;
+					searchX = 10;
+					searchY = 10;
 				}
 			}
-		*/
+		}
+		if (fWin == false) {
+			System.out.println("you have lost");
+			System.exit(1);
+		}
+		enemyBoardDisplay(enemyBoard);
+		enemyShooter (friendlyBoard, coordCheck, enemyBoard);
 	}
 	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck, int[][] enemyBoard) {
 		Random rand = new Random();
@@ -155,20 +164,24 @@ public class Main {
 			friendlyBoard[randCoordX][randCoordY] = -1;
 			System.out.println("\nTHE ENEMY HAS MISSED, ITS YOUR TURN");
 		}
-		/* THIS DOES NOT WORK
-		for (int searchX = 0; searchX < 6; searchX++) {
-			for (int searchY = 0; searchY < 6; searchY++){
+		
+		boolean eWin = false;
+		for (int searchX = 0; searchX < 5; searchX++) {
+			for (int searchY = 0; searchY < 5; searchY++){
 				if (friendlyBoard[searchX][searchY] == 1) {
-					System.out.println("THE ENEMY KNOWS YOU STILL HAVE SHIPS, WATCH OUT!");
-					friendlyShooter(friendlyBoard, coordCheck, enemyBoard);
-				}
-				else {
-					System.out.println("OH NO THE ENEMY HAS WON, CLOSING THE GAME NOW");
-					System.exit(1);
+					eWin = true;
+					searchX = 10;
+					searchY = 10;
 				}
 			}
 		}
-		*/
+		if (eWin == false) {
+			System.out.println("you have lost");
+			System.exit(1);
+		}
+		friendlyBoardMaker(friendlyBoard);
+		friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
+		
 	}
 }
 
