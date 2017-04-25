@@ -31,20 +31,32 @@ public class Main {
 	public static void friendlyBoardChooser(int[][] friendlyBoard) //this chooses the coordinates for the user
 	{
 		Scanner sc = new Scanner(System.in);
+		int coordinateNumberX = 0;
+		int coordinateNumberY = 0;
 		System.out.println("\nPlease enter your five coordinates");
 		for (int coordinateAmount = 1; coordinateAmount <= 5; coordinateAmount++) {
-				System.out.println("X-value of coordinate number " + coordinateAmount + " (FROM 0-5):");
-				int coordinateNumberX = sc.nextInt();
-				System.out.println("Y-value of coordinate number " + coordinateAmount + " (FROM 0-5):");
-				int coordinateNumberY = sc.nextInt();
-					if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
+				System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
+				String input = sc.nextLine();
+				if (input.length() >= 3) {
+					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS AFTER THE COORDINATES");
+					coordinateAmount--;
+				}
+				else {
+					 coordinateNumberX = Character.getNumericValue(input.charAt(0));
+					 coordinateNumberY = Character.getNumericValue(input.charAt(2));
+				}
+				if (coordinateNumberY > 5 || coordinateNumberX > 5) {
+					System.out.println("\nYOU INPUTTED AN INVALID VALUE, PLEASE INPURT A VALUE BETWEEN 0 AND 5");
+					coordinateAmount--;
+					break;
+				}
+				if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
 						friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
-					}
-					else {
+				}
+				else {
 						System.out.println("YOU HAVE ALREADY SELECTED THIS COORDINATE, PLEASE CHOOSE A DIFFERENT ONE.");
 						coordinateAmount--;
-						
-					}
+				}
 
 		}
 	}
@@ -60,9 +72,9 @@ public class Main {
 				else if (friendlyBoard[row1][column1] == 1)
 					System.out.print("\t" + "B");
 				else if (friendlyBoard[row1][column1] == 2)
-					System.out.println("\t" + "X");
+					System.out.print("\t" + "X");
 				else if (friendlyBoard[row1][column1] == -1)
-					System.out.println("\t" + "-");
+					System.out.print("\t" + "-");
 			}
 			
 				
@@ -78,8 +90,7 @@ public class Main {
 					if(enemyBoard[enemyCoordX][enemyCoordY] == 0)
 						enemyBoard[enemyCoordX][enemyCoordY] = 1;
 					else
-						i--;
-					
+						i--;		
 		}
 		enemyBoardDisplay(enemyBoard);
 	}

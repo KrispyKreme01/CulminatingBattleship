@@ -1,28 +1,21 @@
+import java.util.Scanner;
 
 public class TestingClass {
 
 	public static void main(String[] args) {
-		int[][] array = new int[5][5];
-		array[1][0] = 1;
-		array[2][2] = 1;
-		array[1][4] = 1;
-		array[3][3] = 1;
-		array[4][2] = 1;
-		boolean flag = false;
-		for (int searchX = 0; searchX < 5; searchX++) {
-			for (int searchY = 0; searchY < 5; searchY++){
-				if (array[searchX][searchY] == 1) {
-					System.out.println("THE ENEMY STILL HAS SHIPS, DONT STOP THE FIGHT");
-					flag = true;
-					searchX = 10;
-					searchY = 10;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("\nPlease enter your five coordinates");
+		for (int coordinateAmount = 1; coordinateAmount <= 5; coordinateAmount++) {
+				System.out.println("X-value of coordinate number " + coordinateAmount + " (FROM 0-5):");
+				int coordinateNumberX = sc.nextInt();
+				System.out.println("Y-value of coordinate number " + coordinateAmount + " (FROM 0-5):");
+				int coordinateNumberY = sc.nextInt();
+				if (coordinateNumberY > 5 || coordinateNumberX > 5) {
+					System.out.println("\nYOU INPUTTED AN INVALID VALUE, PLEASE INPURT A VALUE BETWEEN 0 AND 5");
+					coordinateAmount--;
+				
 				}
-			}
-		}
-		if (flag == false) {
-			System.out.println("you have lost");
-			System.exit(1);
-		}
 	}
 
+}
 }
