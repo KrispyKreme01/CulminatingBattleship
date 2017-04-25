@@ -1,21 +1,23 @@
-import java.util.Random;
+
 public class TestingClass {
 
 	public static void main(String[] args) {
-		Random rand = new Random();
-		 int[][] coordCheck = new int[6][6];
-		int randCoordY = 0;
-		
-		int randCoordX = 0;
-		for(int q = 0; q < 1; q++) {
-			randCoordX = rand.nextInt(6);
-			randCoordY = rand.nextInt(6);
-				if (coordCheck[randCoordX][randCoordY] == 0)
-					coordCheck[randCoordX][randCoordY] = 1;
-				else 
-					q--;
-		}
-		System.out.println(randCoordX);
+		int[][] array = new int[5][5];
+		array[1][0] = 1;
+		//array[2][2] = 1;
+		//array[1][4] = 1;
+		//array[3][3] = 1;
+		//array[4][2] = 1;
+			for (int i = 0; i < 5; i++) {
+				for (int u = 0; u < 5; u++) {
+					if (array[i][u] == 1) {
+						System.out.println(true);
+					}
+					else {
+						System.exit(1);
+					}
+				}
+			}
 	}
 
 }

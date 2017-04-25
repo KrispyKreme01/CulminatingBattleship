@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 public class Main {
 
 	public static void main(String[] args) {
@@ -8,7 +9,7 @@ public class Main {
 		int[][] coordCheck = new int[6][6];
 	System.out.println("WELCOME TO VIOLENT SEA DISPUTES \n THIS IS YOUR BOARD");
 	//PRINTS BOARD FOR USER FIRST TIME
-	boardDisplay(friendlyBoard);
+		boardDisplay(friendlyBoard);
 		friendlyBoardChooser(friendlyBoard);
 		friendlyBoardMaker(friendlyBoard);
 		enemyBoardMaker(enemyBoard);
@@ -115,16 +116,22 @@ public class Main {
 				enemyBoard[chooseX][chooseY] = 2;
 				System.out.println("\nYOU HIT A SHIP");
 			}
-			//boolean friendlyWin = intStream boolean (win condition) 
-			if () {
-				//this is where were going to put win conditions, intStream method will
-				//search the entire enemyArray in the friendlyBoard method to check to see if there are
-				//any ships left, if not rerun the shooting methods
+			//checks to see if youve won or not 
+			//DOES NOT WORK
+		/*
+			for (int searchX = 0; searchX < 6; searchX++) {
+				for (int searchY = 0; searchY < 6; searchY++){
+					if (enemyBoard[searchX][searchY] == 1) {
+						System.out.println("THE ENEMY STILL HAS SHIPS, DONT STOP THE FIGHT");
+						enemyShooter(friendlyBoard, coordCheck, enemyBoard);
+					}
+					else {
+						System.out.println("CONGRATULATIONS! YOU HAVE WON");
+						System.exit(1);
+					}
+				}
 			}
-			else {
-			enemyShooter(friendlyBoard, coordCheck, enemyBoard);
-			}
-		
+		*/
 	}
 	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck, int[][] enemyBoard) {
 		Random rand = new Random();
@@ -148,15 +155,20 @@ public class Main {
 			friendlyBoard[randCoordX][randCoordY] = -1;
 			System.out.println("\nTHE ENEMY HAS MISSED, ITS YOUR TURN");
 		}
-		//boolean enemyWin = intStream (enemy win condition)
-		if() {
-			//this is where were going to put win conditions, intStream method will
-			//search the entire friendly Array in the enemyBoard method to check to see if there are
-			//any ships left, if not rerun the shooting methods
+		/* THIS DOES NOT WORK
+		for (int searchX = 0; searchX < 6; searchX++) {
+			for (int searchY = 0; searchY < 6; searchY++){
+				if (friendlyBoard[searchX][searchY] == 1) {
+					System.out.println("THE ENEMY KNOWS YOU STILL HAVE SHIPS, WATCH OUT!");
+					friendlyShooter(friendlyBoard, coordCheck, enemyBoard);
+				}
+				else {
+					System.out.println("OH NO THE ENEMY HAS WON, CLOSING THE GAME NOW");
+					System.exit(1);
+				}
+			}
 		}
-		else {
-			friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
-		}
+		*/
 	}
 }
 
