@@ -131,7 +131,7 @@ public class Main {
 			String chooseCoordinate = sc.nextLine();
 			 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
 			 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
-				if (chooseCoordinate.length() != 3 || chooseX > 5 || chooseY > 5  ){
+				if (chooseCoordinate.length() != 3 || chooseX > 5 || chooseY > 5 || chooseX <= -1 || chooseY <= -1 ){
 					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
 					 chooseCoordinate = sc.nextLine();
 					 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
