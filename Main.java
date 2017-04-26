@@ -54,6 +54,10 @@ public class Main {
 								coordinateAmount--;
 						}
 					}
+					else {
+						System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS GREATER THAN THE COORDINATES");
+						coordinateAmount--;
+					}
 				}
 			}
 			
@@ -127,7 +131,7 @@ public class Main {
 			String chooseCoordinate = sc.nextLine();
 			 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
 			 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
-				if (chooseX > 5 || chooseY > 5 || chooseCoordinate.length() != 3){
+				if (chooseCoordinate.length() != 3 || chooseX > 5 || chooseY > 5  ){
 					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
 					 chooseCoordinate = sc.nextLine();
 					 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
