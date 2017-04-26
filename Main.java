@@ -45,7 +45,8 @@ public class Main {
 				else {
 					 coordinateNumberX = Character.getNumericValue(input.charAt(0));
 					 coordinateNumberY = Character.getNumericValue(input.charAt(2));
-						if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
+					if ((coordinateNumberX < 6 && coordinateNumberX > -1 && coordinateNumberY < 6 && coordinateNumberY > -1)) {
+					 	if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
 								friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
 						}
 						else {
@@ -53,7 +54,9 @@ public class Main {
 								coordinateAmount--;
 						}
 					}
+				}
 			}
+			
 				
 	}
 	public static void friendlyBoardMaker(int[][] friendlyBoard) //this shows the users board
