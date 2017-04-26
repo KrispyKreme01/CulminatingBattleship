@@ -1,6 +1,5 @@
 import java.util.Random;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 public class Main {
 
 	public static void main(String[] args) {
@@ -31,34 +30,31 @@ public class Main {
 	public static void friendlyBoardChooser(int[][] friendlyBoard) //this chooses the coordinates for the user
 	{
 		Scanner sc = new Scanner(System.in);
+		boolean f1 = false;
+		boolean f2 = false;
 		int coordinateNumberX = 0;
 		int coordinateNumberY = 0;
 		System.out.println("\nPlease enter your five coordinates");
-		for (int coordinateAmount = 1; coordinateAmount <= 5; coordinateAmount++) {
+		for (int coordinateAmount = 0; coordinateAmount < 5; coordinateAmount++) {
 				System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
 				String input = sc.nextLine();
-				if (input.length() >= 3) {
-					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS AFTER THE COORDINATES");
+				if (input.length() != 3  || Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5) {
+					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS GREATER THAN THE COORDINATES");
 					coordinateAmount--;
 				}
 				else {
 					 coordinateNumberX = Character.getNumericValue(input.charAt(0));
 					 coordinateNumberY = Character.getNumericValue(input.charAt(2));
-				}
-				if (coordinateNumberY > 5 || coordinateNumberX > 5) {
-					System.out.println("\nYOU INPUTTED AN INVALID VALUE, PLEASE INPURT A VALUE BETWEEN 0 AND 5");
-					coordinateAmount--;
-					break;
-				}
-				if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
-						friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
-				}
-				else {
-						System.out.println("YOU HAVE ALREADY SELECTED THIS COORDINATE, PLEASE CHOOSE A DIFFERENT ONE.");
-						coordinateAmount--;
-				}
-
-		}
+						if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
+								friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
+						}
+						else {
+								System.out.println("YOU HAVE ALREADY SELECTED THIS COORDINATE, PLEASE CHOOSE A DIFFERENT ONE.");
+								coordinateAmount--;
+						}
+					}
+			}
+				
 	}
 	public static void friendlyBoardMaker(int[][] friendlyBoard) //this shows the users board
 	{
@@ -119,35 +115,44 @@ public class Main {
 	}
 	public static void friendlyShooter(int[][] enemyBoard, int[][] friendlyBoard, int[][] coordCheck){
 		Scanner sc = new Scanner(System.in);
+		int chooseX = 0;
+		int chooseY = 0;
+		boolean fWin = false;
 		System.out.println("\nYOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : x,y = 2,2. (SEPERATE ONLY BY COMMA, NO SPACES)");
-		String chooseCoordinate = sc.nextLine();
-		int chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
-		int chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
-			if (enemyBoard[chooseX][chooseY] == 0) {
-				enemyBoard[chooseX][chooseY] = -1;
-				System.out.println("\nYOU MISSED!");
-				
-			}
-			else if (enemyBoard[chooseX][chooseY] == 1 ) {
-				enemyBoard[chooseX][chooseY] = 2;
-				System.out.println("\nYOU HIT A SHIP");
-			}
-			
+		//this loop is to make sure that the user inputs a value that wont cause an error
+		for (int i = 0; i < 1; i++){
+			String chooseCoordinate = sc.nextLine();
+			 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
+			 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
+				if (chooseX > 5 || chooseY > 5 || chooseCoordinate.length() != 3){
+					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
+					 chooseCoordinate = sc.nextLine();
+					 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
+					 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
+					 i--;
+				}
+		}
+		if (enemyBoard[chooseX][chooseY] == 0) {
+			enemyBoard[chooseX][chooseY] = -1;
+			System.out.println("\nYOU MISSED!");	
+		}
+		else if (enemyBoard[chooseX][chooseY] == 1 ) {
+			enemyBoard[chooseX][chooseY] = 2;
+			System.out.println("\nYOU HIT A SHIP");
+		}
 			//checks to see if youve won or not 
-		
-			boolean fWin = false;
 		for (int searchX = 0; searchX < 5; searchX++) {
 			for (int searchY = 0; searchY < 5; searchY++){
 				if (enemyBoard[searchX][searchY] == 1) {
 					System.out.println("\nTHE ENEMY STILL HAS SHIPS, DONT STOP THE FIGHT");
-					fWin = true;
-					searchX = 10;
-					searchY = 10;
+					 fWin = true;
+					 searchX = 10;
+					 searchY = 10;
 				}
 			}
 		}
 		if (fWin == false) {
-			System.out.println("you have lost");
+			System.out.println("YOU HAVE WON! CONGRATULATIONS!");
 			System.exit(1);
 		}
 		enemyBoardDisplay(enemyBoard);
@@ -155,43 +160,42 @@ public class Main {
 	}
 	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck, int[][] enemyBoard) {
 		Random rand = new Random();
-		 
-		int randCoordY = 0;
-		
-		int randCoordX = 0;
-		for(int q = 0; q < 1; q++) {
-			randCoordX = rand.nextInt(6);
-			randCoordY = rand.nextInt(6);
-				if (coordCheck[randCoordX][randCoordY] == 0)
-					coordCheck[randCoordX][randCoordY] = 1;
-				else 
-					q--;
-		}
-		if(friendlyBoard[randCoordX][randCoordY] == 1) {
-			friendlyBoard[randCoordX][randCoordY] = 2;
-			System.out.println("\nYOUR SHIP HAS BEEN HIT");
-		}
-		else if(friendlyBoard[randCoordX][randCoordY] == 0) {
-			friendlyBoard[randCoordX][randCoordY] = -1;
-			System.out.println("\nTHE ENEMY HAS MISSED, ITS YOUR TURN");
-		}
-		
-		boolean eWin = false;
-		for (int searchX = 0; searchX < 5; searchX++) {
-			for (int searchY = 0; searchY < 5; searchY++){
-				if (friendlyBoard[searchX][searchY] == 1) {
-					eWin = true;
-					searchX = 10;
-					searchY = 10;
+		 int randCoordY = 0;
+		 boolean eWin = false;
+		 int randCoordX = 0;
+			for(int q = 0; q < 1; q++) {
+				randCoordX = rand.nextInt(6);
+				randCoordY = rand.nextInt(6);
+					if (coordCheck[randCoordX][randCoordY] == 0)
+						coordCheck[randCoordX][randCoordY] = 1;
+					else 
+						q--;
+			}
+			if(friendlyBoard[randCoordX][randCoordY] == 1) {
+				friendlyBoard[randCoordX][randCoordY] = 2;
+				System.out.println("\nYOUR SHIP HAS BEEN HIT");
+			}
+			else if(friendlyBoard[randCoordX][randCoordY] == 0) {
+				friendlyBoard[randCoordX][randCoordY] = -1;
+				System.out.println("\nTHE ENEMY HAS MISSED, ITS YOUR TURN");
+			}
+			
+			
+			for (int searchX = 0; searchX < 5; searchX++) {
+				for (int searchY = 0; searchY < 5; searchY++){
+					if (friendlyBoard[searchX][searchY] == 1) {
+						eWin = true;
+						searchX = 10;
+						searchY = 10;
+					}
 				}
 			}
-		}
-		if (eWin == false) {
-			System.out.println("you have lost");
-			System.exit(1);
-		}
-		friendlyBoardMaker(friendlyBoard);
-		friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
+			if (eWin == false) {
+				System.out.println("you have lost");
+				System.exit(1);
+			}
+			friendlyBoardMaker(friendlyBoard);
+			friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
 		
 	}
 }
