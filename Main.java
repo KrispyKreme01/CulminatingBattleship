@@ -36,11 +36,14 @@ public class Main {
 		int coordinateNumberY = 0;
 		System.out.println("\nPlease enter your five coordinates");
 		for (int coordinateAmount = 0; coordinateAmount < 5; coordinateAmount++) {
-				System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
+			while (!f1){	
+			System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
 				String input = sc.nextLine();
+				
 				if (Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5) {
 					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS GREATER THAN THE COORDINATES");
-					coordinateAmount--;
+					f1 = false;
+					
 				}
 				else {
 					 coordinateNumberX = Character.getNumericValue(input.charAt(0));
@@ -48,6 +51,7 @@ public class Main {
 					if (coordinateNumberX < 6 && coordinateNumberX > -1 && coordinateNumberY < 6 && coordinateNumberY > -1) {
 					 	if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
 								friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
+								f1 = true;
 						}
 						else {
 								System.out.println("YOU HAVE ALREADY SELECTED THIS COORDINATE, PLEASE CHOOSE A DIFFERENT ONE.");
