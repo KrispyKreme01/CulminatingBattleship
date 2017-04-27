@@ -38,7 +38,7 @@ public class Main {
 		for (int coordinateAmount = 0; coordinateAmount < 5; coordinateAmount++) {
 				System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
 				String input = sc.nextLine();
-				if (input.length() != 3  || Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5) {
+				if (Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5) {
 					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS GREATER THAN THE COORDINATES");
 					coordinateAmount--;
 				}
@@ -126,19 +126,21 @@ public class Main {
 		int chooseY = 0;
 		boolean fWin = false;
 		System.out.println("\nYOU MAY NOW SELECT TWO COORDINATES TO SHOOT FOR EXAMPLE : x,y = 2,2. (SEPERATE ONLY BY COMMA, NO SPACES)");
-		//this loop is to make sure that the user inputs a value that wont cause an error
-		for (int i = 0; i < 1; i++){
+	//this loop is to make sure that the user inputs a value that wont cause an error
+		boolean goodData = false;
+		while (!goodData) {
 			String chooseCoordinate = sc.nextLine();
 			 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
 			 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
-				if (chooseCoordinate.length() != 3 || chooseX > 5 || chooseY > 5 || chooseX <= -1 || chooseY <= -1 ){
+				if (chooseX > 5 || chooseY > 5 || chooseX <= -1 || chooseY <= -1){
+					
 					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
-					 chooseCoordinate = sc.nextLine();
-					 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
-					 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
-					 i--;
+					goodData = false;
 				}
+				else
+					goodData = true;
 		}
+		
 		if (enemyBoard[chooseX][chooseY] == 0) {
 			enemyBoard[chooseX][chooseY] = -1;
 			System.out.println("\nYOU MISSED!");	
@@ -173,7 +175,7 @@ public class Main {
 			for(int q = 0; q < 1; q++) {
 				randCoordX = rand.nextInt(6);
 				randCoordY = rand.nextInt(6);
-					if (coordCheck[randCoordX][randCoordY] == 0)
+					if (coordCheck[randCoordX][randCoordY] == 0) 
 						coordCheck[randCoordX][randCoordY] = 1;
 					else 
 						q--;
