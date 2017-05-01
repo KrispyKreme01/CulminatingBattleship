@@ -40,10 +40,17 @@ public class Main {
 			System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
 				String input = sc.nextLine();
 				
-				if (Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5) {
+				/*
+				if (Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5 || input.length() < 3) {
 					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS GREATER THAN THE COORDINATES");
-					f1 = false;
+				}
+*/
+				if (input.length() < 3){
+					System.out.println("error caught works");
+				}
 					
+				else if ((Character.getNumericValue(input.charAt(2)) > 5) || (Character.getNumericValue(input.charAt(2)) > 5 )){
+					System.out.println("out of range works");
 				}
 				else {
 					 coordinateNumberX = Character.getNumericValue(input.charAt(0));
@@ -64,6 +71,8 @@ public class Main {
 					}
 				}
 			}
+			f1 = false;
+		}
 			
 				
 	}
