@@ -39,18 +39,12 @@ public class Main {
 			while (!f1){	
 			System.out.println("Please enter your X and Y coordinate number " + coordinateAmount + " (FROM 0-5) for example 2,2:");
 				String input = sc.nextLine();
-				
-				/*
-				if (Character.getNumericValue(input.charAt(0)) > 5 || Character.getNumericValue(input.charAt(2)) > 5 || input.length() < 3) {
-					System.out.println("YOU HAVE INPUTTED AN INVALID VALUE, PLEASE DO NOT USE SPACES OR INCLUDE CHARACTERS GREATER THAN THE COORDINATES");
-				}
-*/
 				if (input.length() < 3){
-					System.out.println("error caught works");
+					System.out.println("INVALID INPUT, PLEASE TRY AGAIN");
 				}
 					
 				else if ((Character.getNumericValue(input.charAt(2)) > 5) || (Character.getNumericValue(input.charAt(2)) > 5 )){
-					System.out.println("out of range works");
+					System.out.println("INVALID INPUT, PLEASE TRY AGAIN");
 				}
 				else {
 					 coordinateNumberX = Character.getNumericValue(input.charAt(0));
@@ -143,17 +137,21 @@ public class Main {
 		boolean goodData = false;
 		while (!goodData) {
 			String chooseCoordinate = sc.nextLine();
-			 chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
-			 chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
-				if (chooseX > 5 || chooseY > 5 || chooseX <= -1 || chooseY <= -1){
-					
+			 
+			 if (chooseCoordinate.length() < 3) {
+					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
+					goodData = false;	
+			}
+			 else if (Character.getNumericValue(chooseCoordinate.charAt(0)) > 5 || Character.getNumericValue(chooseCoordinate.charAt(2)) > 5 ){		
 					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
 					goodData = false;
-				}
-				else
+		 	}
+				else {
 					goodData = true;
+			 		chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
+			 		chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
+			}
 		}
-		
 		if (enemyBoard[chooseX][chooseY] == 0) {
 			enemyBoard[chooseX][chooseY] = -1;
 			System.out.println("\nYOU MISSED!");	
@@ -166,7 +164,6 @@ public class Main {
 		for (int searchX = 0; searchX < 5; searchX++) {
 			for (int searchY = 0; searchY < 5; searchY++){
 				if (enemyBoard[searchX][searchY] == 1) {
-					System.out.println("\nTHE ENEMY STILL HAS SHIPS, DONT STOP THE FIGHT");
 					 fWin = true;
 					 searchX = 10;
 					 searchY = 10;
@@ -179,6 +176,7 @@ public class Main {
 		}
 		enemyBoardDisplay(enemyBoard);
 		enemyShooter (friendlyBoard, coordCheck, enemyBoard);
+		
 	}
 	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck, int[][] enemyBoard) {
 		Random rand = new Random();
