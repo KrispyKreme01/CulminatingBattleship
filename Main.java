@@ -142,14 +142,14 @@ public class Main {
 					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
 					goodData = false;	
 			}
-			 else if (Character.getNumericValue(chooseCoordinate.charAt(0)) > 5 || Character.getNumericValue(chooseCoordinate.charAt(2)) > 5 ){		
+			 else if (Character.getNumericValue(chooseCoordinate.charAt(0)) > 5 || Character.getNumericValue(chooseCoordinate.charAt(2)) > 5 || Character.getNumericValue(chooseCoordinate.charAt(0)) <= -1 || Character.getNumericValue(chooseCoordinate.charAt(2)) <= -1 ){		
 					System.out.println("\nTHAT INPUT WAS INVALID, PLEASE INPUT A PROPER VALUE");
 					goodData = false;
 		 	}
 				else {
-					goodData = true;
 			 		chooseX = Character.getNumericValue(chooseCoordinate.charAt(0));
 			 		chooseY = Character.getNumericValue(chooseCoordinate.charAt(2));
+			 		goodData = true;
 			}
 		}
 		if (enemyBoard[chooseX][chooseY] == 0) {
@@ -161,19 +161,20 @@ public class Main {
 			System.out.println("\nYOU HIT A SHIP");
 		}
 			//checks to see if youve won or not 
-		for (int searchX = 0; searchX < 5; searchX++) {
-			for (int searchY = 0; searchY < 5; searchY++){
+		for (int searchX = 0; searchX < 6; searchX++) {
+			for (int searchY = 0; searchY < 6; searchY++){
 				if (enemyBoard[searchX][searchY] == 1) {
 					 fWin = true;
 					 searchX = 10;
 					 searchY = 10;
 				}
+				else if (fWin == false && searchX == 5) {
+					System.out.println("YOU HAVE WON! CONGRATULATIONS!");
+					System.exit(1);
+				}
 			}
 		}
-		if (fWin == false) {
-			System.out.println("YOU HAVE WON! CONGRATULATIONS!");
-			System.exit(1);
-		}
+		
 		enemyBoardDisplay(enemyBoard);
 		enemyShooter (friendlyBoard, coordCheck, enemyBoard);
 		
@@ -181,6 +182,7 @@ public class Main {
 	public static void enemyShooter (int[][] friendlyBoard, int[][] coordCheck, int[][] enemyBoard) {
 		Random rand = new Random();
 		 int randCoordY = 0;
+		 int counter = 0;
 		 boolean eWin = false;
 		 int randCoordX = 0;
 			for(int q = 0; q < 1; q++) {
@@ -201,18 +203,19 @@ public class Main {
 			}
 			
 			
-			for (int searchX = 0; searchX < 5; searchX++) {
-				for (int searchY = 0; searchY < 5; searchY++){
+			for (int searchX = 0; searchX < 6; searchX++) {
+				for (int searchY = 0; searchY < 6; searchY++){
 					if (friendlyBoard[searchX][searchY] == 1) {
 						eWin = true;
 						searchX = 10;
 						searchY = 10;
 					}
+					else if (eWin == false && searchX == 5) {
+						System.out.println("you have lost");
+						System.exit(1);
 				}
 			}
-			if (eWin == false) {
-				System.out.println("you have lost");
-				System.exit(1);
+			
 			}
 			friendlyBoardMaker(friendlyBoard);
 			friendlyShooter(enemyBoard, friendlyBoard, coordCheck);
