@@ -41,8 +41,7 @@ public class Main {
 				String input = sc.nextLine();
 				if (input.length() < 3){
 					System.out.println("INVALID INPUT, PLEASE TRY AGAIN");
-				}
-					
+				}	
 				else if ((Character.getNumericValue(input.charAt(2)) > 5) || (Character.getNumericValue(input.charAt(2)) > 5 )){
 					System.out.println("INVALID INPUT, PLEASE TRY AGAIN");
 				}
