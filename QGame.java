@@ -78,6 +78,7 @@ public class QGame {
 		}
 	}
 	public static void diffE() {
+		boolean flag = false;
 		System.out.println("you have chosen easy");
 		for (int i = 0; i < 5; i++) {
 			System.out.println("here is riddle #"+ i + " " + eRiddles[i] + "\n\n what is your answer?");
@@ -90,8 +91,31 @@ public class QGame {
 				System.out.println("not correct, no points awarded");
 			}
 		}
+		
+		if (score > 4) {
+			while(!flag) {
+			System.out.println("You have scored 5, would you like to go to the next difficulty?");
+			String confirm = sc.nextLine();
+			confirm.toLowerCase();
+			if (confirm.charAt(0) == 'y') {
+				flag = true;
+				diffM();
+			}
+			else if (confirm.charAt(0) == 'n') {
+				flag = true;
+				System.out.println("you have chosen to quit, thanks for playing");
+				System.exit(1);
+			}
+			else {
+				flag = false;
+				System.out.println("invalid input, try again");
+			}
+		}
+		}
 	}
 	public static void diffM() {
+		boolean flag = false;
+		score = 0;
 		System.out.println("you have chosen medium");
 		for (int i = 0; i < 5; i++) {
 			System.out.println("here is riddle #"+ i + mRiddles[i] + "\n\n what is your answer?");
@@ -103,15 +127,37 @@ public class QGame {
 			else {
 				System.out.println("not correct, no points awarded");
 			}
+			if (score > 4) {
+				while(!flag) {
+				System.out.println("You have scored " + (score+5) +", would you like to go to the next difficulty?");
+				String confirm = sc.nextLine();
+				confirm.toLowerCase();
+				if (confirm.charAt(0) == 'y') {
+					flag = true;
+					diffM();
+				}
+				else if (confirm.charAt(0) == 'n') {
+					flag = true;
+					System.out.println("you have chosen to quit, thanks for playing");
+					System.exit(1);
+				}
+				else {
+					flag = false;
+					System.out.println("invalid input, try again");
+				}
+			}
+			}
 		}
 	}
 	public static void diffH() {
+		boolean flag = false;
+		score = 0;
 		System.out.println("you have chosen hard");
 		System.out.println("you have chosen medium");
-		for (int i = 1; i < 6; i++) {
-			System.out.println("here is riddle #"+ i +hRiddles[i-1] + "\n\n what is your answer?");
-			userAnswer[i-1] = sc.nextLine().toLowerCase();
-			if(userAnswer[i-1].contains(hAnswer[-1])) {
+		for (int i = 0; i < 5; i++) {
+			System.out.println("here is riddle #"+ i +hRiddles[i] + "\n\n what is your answer?");
+			userAnswer[i] = sc.nextLine().toLowerCase();
+			if(userAnswer[i].contains(hAnswer[i])) {
 				System.out.println("CORRECT, + 1 POINT");
 				score++;
 			}
