@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.Scanner;
 public class Main {
@@ -6,7 +7,14 @@ public class Main {
 		int[][] enemyBoard = new int[6][6];
 		int[][] friendlyBoard = new int[6][6];
 		int[][] coordCheck = new int[6][6];
-	System.out.println("WELCOME TO VIOLENT SEA DISPUTES \n THIS IS YOUR BOARD");
+	
+	System.out.println("WELCOME TO VIOLENT SEA DISPUTES");
+	System.out.println("HERE ARE THE RULES\n___________\nTHE OBJECTIVE OF THE GAME IS TO FIND AND DESTROY OTHER PEOPLES SHIPS"
+			+ "\nTO DO THIS, YOU WILL CHOOSE COORDINATES ON THE ENEMIES BOARD\nTO SHOOT.\n_________\nUNSHOT COORDINATES"
+			+ "WILL BE REPRESENTED AS '~'.\n_________\nALL COORDINATES THAT HAVE BEEN SHOT BUT DID NOT CONTAIN SHIPS WILL BE REPRESENTED AS '-'.\n_________\n"
+			+ "ALL COORDINATES THAT WERE SHOT THAT DID CONTAIN SHIPS WILL BE REPRESENTED AS 'X'.\n_________\nWHEN ALL SHIPS ON ONE SIDE HAVE BEEN"
+			+ "SHOT, THE OPPOSING PLAYER WILL WIN.\n_________\n");
+	System.out.println("THIS IS YOUR BOARD\n\n");
 	//PRINTS BOARD FOR USER FIRST TIME
 		boardDisplay(friendlyBoard);
 		friendlyBoardChooser(friendlyBoard);
@@ -50,7 +58,7 @@ public class Main {
 					 coordinateNumberY = Character.getNumericValue(input.charAt(2));
 					if (coordinateNumberX < 6 && coordinateNumberX > -1 && coordinateNumberY < 6 && coordinateNumberY > -1) {
 					 	if(friendlyBoard[coordinateNumberX][coordinateNumberY] == 0){
-								friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
+					 			friendlyBoard[coordinateNumberX][coordinateNumberY] = 1;
 								f1 = true;
 						}
 						else {
@@ -210,7 +218,7 @@ public class Main {
 						searchY = 10;
 					}
 					else if (eWin == false && searchX == 5) {
-						System.out.println("you have lost");
+						System.out.println("YOU HAVE LOST! \nExiting...");
 						System.exit(1);
 				}
 			}
@@ -221,6 +229,4 @@ public class Main {
 		
 	}
 }
-
-
 
